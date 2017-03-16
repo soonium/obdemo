@@ -65,7 +65,7 @@ class atmController extends Controller
 
           $tweetText = $twitterHandle . " Info about ATM " . $atmRecord['ATMID'];
 
-          $info = $info . '<a href="https://twitter.com/intent/tweet?button_hashtag=fixmyatm&text=' . urlencode($tweetText)  . '" class="twitter-hashtag-button" data-show-count="false">Tweet ' . $bankId . ' about this ATM</a>';
+          $info = $info . '<a href="https://twitter.com/intent/tweet?button_hashtag=socialatm&text=' . urlencode($tweetText)  . '" class="twitter-hashtag-button" data-show-count="false">Tweet ' . $bankId . ' about this ATM</a>';
         }
         $atmArr[] = array($atmRecord['ATMID'] , $atmRecord['GeographicLocation']['Latitude'] , $atmRecord['GeographicLocation']['Longitude'], $info, $bankId);
 
