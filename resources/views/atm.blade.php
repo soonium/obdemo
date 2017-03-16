@@ -45,7 +45,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 64px;
             }
 
             .links > a {
@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Barclays Bank: {{ $count }} ATMs
+                    Barclays Bank: {{ $count }} ATMs <img src="images/np.png" height="45px"/>
                 </div>
 
             </div>
