@@ -20,7 +20,21 @@ class atmController extends Controller
 
     public function show()
     {
-      $json = json_decode(file_get_contents("https://atlas.api.barclays/open-banking/v1.3/atms"),true);
+
+      $atmChunk1 = $this->getATMData("https://atlas.api.barclays/open-banking/v1.3/atms","Barclays");
+      $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.2/atms","Natwest");
+      $atmList = array_merge ($atmChunk1,$atmChunk2);
+      Log::info($atmList);
+
+
+      return view('atm',['locations' => json_encode($atmList, JSON_NUMERIC_CHECK ) ]);
+    }
+
+    private function getATMData($url,$bankId){
+
+      $atmArr=array();
+
+      $json = json_decode(file_get_contents($url),true);
       Log::info('TotalResults: '.$json['meta']['TotalResults']);
       Log::info('Data Array Size: '.sizeof($json['data']));
 
@@ -42,10 +56,11 @@ class atmController extends Controller
 
         $info = $info . rtrim($ser,", ") . ".<br/>";
 
-        $atmArr[] = array($atmRecord['ATMID'] , $atmRecord['GeographicLocation']['Latitude'] , $atmRecord['GeographicLocation']['Longitude'], $info);
+        $atmArr[] = array($atmRecord['ATMID'] , $atmRecord['GeographicLocation']['Latitude'] , $atmRecord['GeographicLocation']['Longitude'], $info, $bankId);
+
       }
+      return $atmArr;
 
-
-      return view('atm',['count' => $json['meta']['TotalResults'], 'locations' => json_encode($atmArr, JSON_NUMERIC_CHECK ) ]);
     }
+
 }

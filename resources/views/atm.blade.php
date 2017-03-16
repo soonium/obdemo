@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Barclays Bank: {{ $count }} ATMs <img src="images/np.png" height="45px"/>
+                    UK Bank ATM Map <img src="images/np.png" height="45px"/>
                 </div>
 
             </div>
@@ -93,9 +93,12 @@
 
           var iconBase = 'images/';
           var icons = {
-                    barclays: {
+                    Barclays: {
                       icon: iconBase + 'barclays.icon.png'
-                    }
+                    },
+                    Natwest: {
+                      icon: iconBase + 'natwest.icon.png'
+                    },
                   };
 
 
@@ -119,7 +122,7 @@
                   position: { lat: Number(loc[1]), lng: Number(loc[2]) },
                   map: map,
                   title: String(loc[0]),
-                  icon: icons['barclays'].icon
+                  icon: icons[ String(loc[4]) ].icon
                 });
 
                 var infowindow = new google.maps.InfoWindow({
