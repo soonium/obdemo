@@ -23,7 +23,8 @@ class atmController extends Controller
 
       $atmChunk1 = $this->getATMData("https://atlas.api.barclays/open-banking/v1.3/atms","Barclays");
       $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.2/atms","Natwest");
-      $atmList = array_merge ($atmChunk1,$atmChunk2);
+      $atmChunk3 = $this->getATMData("https://openapi.bankofireland.com/open-banking/v1.2/atms","BankOfIreland");
+      $atmList = array_merge ($atmChunk1,$atmChunk2,$atmChunk3);
 
       return view('atm',['locations' => json_encode($atmList, JSON_NUMERIC_CHECK ) ]);
     }
@@ -32,7 +33,14 @@ class atmController extends Controller
 
       $atmArr=array();
 
-      $json = json_decode(file_get_contents($url),true);
+      $arrContextOptions=array(
+          "ssl"=>array(
+              "verify_peer"=>false,
+              "verify_peer_name"=>false,
+          ),
+      );
+
+      $json = json_decode(file_get_contents($url, false, stream_context_create($arrContextOptions)),true);
 
       foreach ($json['data'] as $atmRecord){
         // Create info pane string

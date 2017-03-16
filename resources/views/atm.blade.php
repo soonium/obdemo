@@ -99,6 +99,9 @@
                     Natwest: {
                       icon: iconBase + 'natwest.icon.png'
                     },
+                    BankOfIreland: {
+                      icon: iconBase + 'bankofireland.icon.png'
+                    }
                   };
 
 
