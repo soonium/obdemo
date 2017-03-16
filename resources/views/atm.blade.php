@@ -88,7 +88,7 @@
 
         </div>
         <div id="map"></div>
-
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
         <script>
 
           var iconBase = 'images/';

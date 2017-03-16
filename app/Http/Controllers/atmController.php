@@ -21,17 +21,17 @@ class atmController extends Controller
     public function show()
     {
 
-      $atmChunk1 = $this->getATMData("https://atlas.api.barclays/open-banking/v1.3/atms","Barclays");
-      $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.2/atms","Natwest");
-      $atmChunk3 = $this->getATMData("https://openapi.bankofireland.com/open-banking/v1.2/atms","BankOfIreland");
-      $atmChunk4 = $this->getATMData("https://api.santander.co.uk/retail/open-banking/v1.2/atms","Santander");
+      $atmChunk1 = $this->getATMData("https://atlas.api.barclays/open-banking/v1.3/atms","Barclays","@BarclaysUKHelp");
+      $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.2/atms","Natwest","");
+      $atmChunk3 = $this->getATMData("https://openapi.bankofireland.com/open-banking/v1.2/atms","BankOfIreland","");
+      $atmChunk4 = $this->getATMData("https://api.santander.co.uk/retail/open-banking/v1.2/atms","Santander","");
 
       $atmList = array_merge ($atmChunk1,$atmChunk2,$atmChunk3,$atmChunk4);
 
       return view('atm',['locations' => json_encode($atmList, JSON_NUMERIC_CHECK ) ]);
     }
 
-    private function getATMData($url,$bankId){
+    private function getATMData($url,$bankId,$twitterHandle){
 
       $atmArr=array();
 
@@ -61,7 +61,12 @@ class atmController extends Controller
         }
 
         $info = $info . rtrim($ser,", ") . ".<br/>";
+        if ($twitterHandle <> ""){
 
+          $tweetText = $twitterHandle . " Info about ATM " . $atmRecord['ATMID'];
+
+          $info = $info . '<a href="https://twitter.com/intent/tweet?button_hashtag=fixmyatm&text=' . urlencode($tweetText)  . '" class="twitter-hashtag-button" data-show-count="false">Tweet ' . $bankId . ' about this ATM</a>';
+        }
         $atmArr[] = array($atmRecord['ATMID'] , $atmRecord['GeographicLocation']['Latitude'] , $atmRecord['GeographicLocation']['Longitude'], $info, $bankId);
 
       }
