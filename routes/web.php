@@ -11,8 +11,6 @@
 |
 */
 
-Route::get('/', function()
-  {
-    return view('welcome');
-  });
+Route::get('/', function() { return view('welcome'); });
+Route::get('/def', function() { return view('def'); });
 Route::get('/atm', 'atmController@show');
