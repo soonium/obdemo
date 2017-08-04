@@ -22,7 +22,7 @@ class atmController extends Controller
     {
 
       $atmChunk1 = $this->getATMData("https://atlas.api.barclays/open-banking/v1.3/atms","Barclays","@BarclaysUKHelp");
-      $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.2/atms","Natwest","");
+      $atmChunk2 = $this->getATMData("https://openapi.natwest.com/open-banking/v1.3/atms","Natwest","");
       $atmChunk3 = $this->getATMData("https://openapi.bankofireland.com/open-banking/v1.2/atms","BankOfIreland","");
       $atmChunk4 = $this->getATMData("https://api.santander.co.uk/retail/open-banking/v1.2/atms","Santander","");
 
